@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin Dashboard | Ca Pac SG Financial Advisory</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Custom Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#002B29',
+              darker: '#001A18',
+              deep: '#002422',
+              secondary: '#004C49',
+              accent: '#16D5C5',
+              accentHover: '#13bcad',
+              pale: '#EDFBF9',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Admin Custom Stylesheet -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- =========================================================================
+       VIEW 1: Admin Login Screen
+       ========================================================================= -->
+  <div id="login-view" class="flex-1 flex items-center justify-center p-4 bg-slate-900 relative overflow-hidden">
+    <!-- Ambient glowing backdrop -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-md w-full bg-brand-dark border border-teal-500/30 rounded-2xl p-8 sm:p-10 shadow-2xl text-white">
+      <!-- Logo Header -->
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-lg bg-brand-secondary flex items-end justify-center p-1.5 gap-0.5 shadow-inner">
+          <span class="w-1.5 h-4 bg-brand-accent rounded-xs"></span>
+          <span class="w-1.5 h-7 bg-brand-accent rounded-xs"></span>
+          <span class="w-1.5 h-5 bg-brand-accent rounded-xs"></span>
+        </div>
+        <span class="text-2xl font-bold tracking-tight text-white">Ca Pac SG</span>
+      </div>
+
+      <div class="text-center mb-8">
+        <h1 class="text-xl font-bold text-white">Advisory Management Portal</h1>
+        <p class="text-xs text-slate-400 mt-1">Sign in to view consultation bookings and edit site settings</p>
+      </div>
+
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1" for="admin-username">Admin Email / Username</label>
+          <input type="text" id="admin-username" required placeholder="Enter admin email or username" class="w-full px-3.5 py-2.5 bg-brand-darker border border-teal-700/50 rounded-lg text-sm text-white focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1" for="admin-password">Password</label>
+          <input type="password" id="admin-password" required placeholder="Enter your password" class="w-full px-3.5 py-2.5 bg-brand-darker border border-teal-700/50 rounded-lg text-sm text-white focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent">
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3 px-4 bg-brand-accent hover:bg-brand-accentHover text-brand-dark font-bold text-sm rounded-lg shadow-md transition-transform duration-150 active:scale-[0.99] cursor-pointer">
+            Sign In to Dashboard
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 2: Admin Dashboard
+       ========================================================================= -->
+  <div id="dashboard-view" class="hidden flex-1 flex flex-col md:flex-row min-h-screen">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="w-full md:w-64 bg-brand-dark text-white flex flex-col border-r border-teal-900/60 flex-shrink-0">
+      <!-- Brand Header -->
+      <div class="p-6 border-b border-teal-900/60 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded bg-brand-secondary flex items-end justify-center p-1 gap-0.5">
+            <span class="w-1 h-3 bg-brand-accent"></span>
+            <span class="w-1 h-5 bg-brand-accent"></span>
+            <span class="w-1 h-3.5 bg-brand-accent"></span>
+          </div>
+          <div>
+            <h2 class="font-bold text-base text-white leading-tight">Ca Pac SG</h2>
+            <span class="text-[10px] text-teal-400 font-semibold tracking-wider uppercase">Admin Console</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-4 space-y-1.5 flex-1">
+        <button type="button" class="nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-brand-secondary/40 transition-colors text-left" data-tab="overview">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span>Overview</span>
+        </button>
+
+        <button type="button" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-brand-secondary/40 transition-colors text-left" data-tab="bookings">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Bookings & Inquiries</span>
+        </button>
+
+        <button type="button" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold text-slate-300 hover:text-white hover:bg-brand-secondary/40 transition-colors text-left" data-tab="settings">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Website Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Bottom Actions -->
+      <div class="p-4 border-t border-teal-900/60 space-y-2">
+        <a href="/" target="_blank" class="flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-semibold text-teal-300 hover:text-white hover:bg-brand-secondary/40 transition-colors">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            <span>View Live Website</span>
+          </span>
+          <span>↗</span>
+        </a>
+
+        <button type="button" id="admin-logout-btn" class="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-lg text-xs font-semibold text-rose-300 hover:text-white hover:bg-rose-900/40 transition-colors cursor-pointer text-left">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-y-auto">
+      
+      <!-- Top Bar Header -->
+      <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <div>
+          <h1 class="text-lg font-extrabold text-slate-900">Control Panel</h1>
+          <p class="text-xs text-slate-500">Manage client bookings and update live site content</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 text-xs text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Server Live on Port 3000</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-brand-dark text-brand-accent flex items-center justify-center font-bold text-xs">
+            AD
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Views -->
+      <div class="p-6 sm:p-8 flex-1">
+        
+        <!-- =====================================================================
+             TAB 1: Overview
+             ===================================================================== -->
+        <div id="tab-overview" class="tab-pane space-y-8">
+          <!-- Stat Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Total -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1">Total Consultations</span>
+                <span id="stat-total-bookings" class="text-3xl font-extrabold text-slate-900">0</span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              </div>
+            </div>
+
+            <!-- Pending -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 block mb-1">Pending Review</span>
+                <span id="stat-pending-bookings" class="text-3xl font-extrabold text-amber-600">0</span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+
+            <!-- Confirmed -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 block mb-1">Confirmed Sessions</span>
+                <span id="stat-confirmed-bookings" class="text-3xl font-extrabold text-emerald-600">0</span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+
+            <!-- Completed -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-600 block mb-1">Completed Consultations</span>
+                <span id="stat-completed-bookings" class="text-3xl font-extrabold text-sky-600">0</span>
+              </div>
+              <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Shortcuts & Recent List -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Recent Inquiries -->
+            <div class="lg:col-span-7 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-slate-900 text-base">Recent Consultation Requests</h3>
+                <button type="button" class="text-xs font-bold text-teal-700 hover:text-teal-900 nav-item" data-tab="bookings">View All &rarr;</button>
+              </div>
+              <div id="recent-bookings-list" class="space-y-3">
+                <!-- Injected via admin.js -->
+              </div>
+            </div>
+
+            <!-- Right: Quick Actions Card -->
+            <div class="lg:col-span-5 bg-brand-dark text-white p-6 rounded-xl border border-teal-800 shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-2 block">Quick Actions</span>
+                <h3 class="text-xl font-bold mb-3">Manage Your Site Real-Time</h3>
+                <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                  Changes saved in the Website Settings tab are immediately synchronized to the active website.
+                </p>
+                <div class="space-y-2.5">
+                  <button type="button" class="w-full py-2.5 px-4 bg-brand-secondary hover:bg-brand-secondary/80 text-white rounded-lg text-xs font-bold flex items-center justify-between border border-teal-600/40 nav-item" data-tab="settings">
+                    <span>✏️ Edit Phone, Email & Address</span>
+                    <span>&rarr;</span>
+                  </button>
+                  <button type="button" class="w-full py-2.5 px-4 bg-brand-secondary hover:bg-brand-secondary/80 text-white rounded-lg text-xs font-bold flex items-center justify-between border border-teal-600/40 nav-item" data-tab="settings">
+                    <span>📢 Update Hero Headline & Subtitle</span>
+                    <span>&rarr;</span>
+                  </button>
+                  <button type="button" class="w-full py-2.5 px-4 bg-brand-secondary hover:bg-brand-secondary/80 text-white rounded-lg text-xs font-bold flex items-center justify-between border border-teal-600/40 nav-item" data-tab="settings">
+                    <span>📊 Adjust Advisory Capability Percentages</span>
+                    <span>&rarr;</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="pt-6 mt-6 border-t border-teal-800/80">
+                <a href="/" target="_blank" class="block text-center py-2.5 bg-brand-accent hover:bg-brand-accentHover text-brand-dark font-bold text-xs rounded-lg transition-transform hover:-translate-y-0.5">
+                  Preview Live Public Site
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================================
+             TAB 2: Bookings & Inquiries Table
+             ===================================================================== -->
+        <div id="tab-bookings" class="tab-pane hidden space-y-6">
+          
+          <!-- Filters & Actions Header -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
+            <!-- Search & Filters -->
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+              <!-- Search -->
+              <div class="relative flex-1 md:w-64">
+                <input type="text" id="search-bookings" placeholder="Search by name, email, phone, ID..." class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+
+              <!-- Status Filter -->
+              <select id="filter-status" class="px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                <option value="All">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+
+              <!-- Service Filter -->
+              <select id="filter-service" class="px-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                <option value="All">All Services</option>
+                <option value="Bookkeeping">Bookkeeping & Accounting</option>
+                <option value="Tax">Tax Planning & Compliance</option>
+                <option value="CFO">Financial Planning & CFO</option>
+                <option value="Secretarial">Corporate Secretarial</option>
+              </select>
+            </div>
+
+            <!-- Export & Add Manual Booking -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+              <button type="button" id="btn-export-csv" class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg shadow-sm flex items-center gap-1.5 cursor-pointer">
+                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Export CSV</span>
+              </button>
+
+              <button type="button" id="btn-add-booking" class="px-4 py-2 text-xs font-bold text-brand-dark bg-brand-accent hover:bg-brand-accentHover rounded-lg shadow-sm flex items-center gap-1.5 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Booking</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bookings Table Container -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <th class="px-4 py-3.5">ID</th>
+                    <th class="px-4 py-3.5">Client</th>
+                    <th class="px-4 py-3.5">Contact Info</th>
+                    <th class="px-4 py-3.5">Requested Service</th>
+                    <th class="px-4 py-3.5">Status</th>
+                    <th class="px-4 py-3.5">Client Note</th>
+                    <th class="px-4 py-3.5 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookings-table-body" class="divide-y divide-slate-100 text-xs">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- =====================================================================
+             TAB 3: Website Content & Settings
+             ===================================================================== -->
+        <div id="tab-settings" class="tab-pane hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900">Website Content & Settings</h2>
+              <p class="text-xs text-slate-500">Edit business contact details, hero content, and advisory percentages</p>
+            </div>
+          </div>
+
+          <form id="site-settings-form" class="space-y-8">
+            
+            <!-- Group 1: General Business & Contact Information -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-5">
+              <div class="border-b border-slate-100 pb-3">
+                <h3 class="text-sm font-bold text-slate-900">1. Contact & Business Details</h3>
+                <p class="text-xs text-slate-500">Controls the header, location section, and footer contact entries</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-company-name">Company Name</label>
+                  <input type="text" id="cfg-company-name" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-tagline">Tagline / Sub-heading</label>
+                  <input type="text" id="cfg-tagline" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-phone">Phone Number</label>
+                  <input type="text" id="cfg-phone" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-email">Official Email</label>
+                  <input type="email" id="cfg-email" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-address">Registered Office Address</label>
+                  <input type="text" id="cfg-address" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-maps-url">Google Maps URL</label>
+                  <input type="url" id="cfg-maps-url" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-hours">Operating Hours</label>
+                  <input type="text" id="cfg-hours" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Group 2: Hero Section Copywriting -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-5">
+              <div class="border-b border-slate-100 pb-3">
+                <h3 class="text-sm font-bold text-slate-900">2. Hero Section Headlines</h3>
+                <p class="text-xs text-slate-500">Controls the main headline and subtitle above the fold</p>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-hero-eyebrow">Hero Eyebrow Badge</label>
+                  <input type="text" id="cfg-hero-eyebrow" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-hero-headline">Main Headline</label>
+                  <textarea id="cfg-hero-headline" rows="2" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-hero-subtitle">Hero Subtitle Paragraph</label>
+                  <textarea id="cfg-hero-subtitle" rows="3" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-cta-text">Primary CTA Button Label</label>
+                  <input type="text" id="cfg-cta-text" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Group 3: Advisory Capability Progress Metrics -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-5">
+              <div class="border-b border-slate-100 pb-3">
+                <h3 class="text-sm font-bold text-slate-900">3. Capability Metrics (Progress Bars)</h3>
+                <p class="text-xs text-slate-500">Percentages displayed in the 'Why Ca Pac SG' section</p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-metric-fp">Financial Planning (%)</label>
+                  <input type="number" min="0" max="100" id="cfg-metric-fp" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-metric-tax">Tax Compliance (%)</label>
+                  <input type="number" min="0" max="100" id="cfg-metric-tax" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-metric-ba">Business Advisory (%)</label>
+                  <input type="number" min="0" max="100" id="cfg-metric-ba" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cfg-metric-cs">Client Satisfaction (%)</label>
+                  <input type="number" min="0" max="100" id="cfg-metric-cs" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Save Settings Button -->
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <button type="submit" class="px-8 py-3.5 bg-brand-accent hover:bg-brand-accentHover text-brand-dark font-bold text-sm rounded-lg shadow-md transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                Save &amp; Apply Changes to Live Website
+              </button>
+            </div>
+          </form>
+
+          <!-- Group 4: Admin Account & Password Management -->
+          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-5">
+            <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <span>🔒 4. Admin Security & Login Credentials</span>
+                </h3>
+                <p class="text-xs text-slate-500">Update the username/email and password used to access this admin panel</p>
+              </div>
+              <span class="text-xs bg-teal-50 text-teal-800 font-semibold px-2.5 py-1 rounded border border-teal-200">
+                Active Session
+              </span>
+            </div>
+
+            <form id="admin-credentials-form" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cred-current-password">Current Password *</label>
+                <input type="password" id="cred-current-password" required placeholder="Enter your current password" class="w-full sm:max-w-md px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cred-new-username">New Admin Email / Username</label>
+                  <input type="text" id="cred-new-username" placeholder="factinkobyhr@gmail.com" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cred-new-password">New Password *</label>
+                  <input type="password" id="cred-new-password" required placeholder="Enter new password (min 6 chars)" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="cred-confirm-password">Confirm New Password *</label>
+                <input type="password" id="cred-confirm-password" required placeholder="Re-enter new password" class="w-full sm:max-w-md px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+              </div>
+
+              <div class="pt-2 flex justify-start">
+                <button type="submit" class="px-6 py-2.5 bg-brand-secondary hover:bg-brand-secondary/80 text-white font-bold text-xs rounded-lg shadow-sm transition-all cursor-pointer">
+                  Update Admin Credentials
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       MODAL: View Booking Details
+       ========================================================================= -->
+  <div id="view-booking-modal" class="admin-modal fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs cursor-pointer" onclick="document.getElementById('view-booking-modal').classList.remove('active')"></div>
+    <div class="admin-modal-card relative bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 z-10 space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div>
+          <span id="view-b-id" class="text-xs font-mono font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200"></span>
+          <h3 id="view-b-name" class="text-xl font-bold text-slate-900 mt-1"></h3>
+        </div>
+        <button type="button" id="view-booking-modal-close" class="text-slate-400 hover:text-slate-700 text-2xl font-light focus:outline-none">&times;</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-700">
+        <div class="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+          <div>
+            <span class="font-bold text-slate-500 block uppercase tracking-wider text-[10px]">Email</span>
+            <span id="view-b-email" class="font-medium text-slate-900"></span>
+          </div>
+          <div>
+            <span class="font-bold text-slate-500 block uppercase tracking-wider text-[10px]">Phone</span>
+            <span id="view-b-phone" class="font-medium text-slate-900"></span>
+          </div>
+          <div>
+            <span class="font-bold text-slate-500 block uppercase tracking-wider text-[10px]">Service Area</span>
+            <span id="view-b-service" class="font-medium text-slate-900"></span>
+          </div>
+          <div>
+            <span class="font-bold text-slate-500 block uppercase tracking-wider text-[10px]">Received On</span>
+            <span id="view-b-date" class="font-medium text-slate-900"></span>
+          </div>
+        </div>
+
+        <div>
+          <span class="font-bold text-slate-500 block uppercase tracking-wider text-[10px] mb-1">Status</span>
+          <span id="view-b-status" class="inline-block font-semibold px-2.5 py-1 rounded-full text-xs"></span>
+        </div>
+
+        <div>
+          <span class="font-bold text-slate-500 block uppercase tracking-wider text-[10px] mb-1">Client Requirements & Notes</span>
+          <div id="view-b-message" class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-800 whitespace-pre-wrap leading-relaxed"></div>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end">
+        <button type="button" onclick="document.getElementById('view-booking-modal').classList.remove('active')" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-lg">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: Add Manual Booking
+       ========================================================================= -->
+  <div id="add-booking-modal" class="admin-modal fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs cursor-pointer" onclick="document.getElementById('add-booking-modal').classList.remove('active')"></div>
+    <div class="admin-modal-card relative bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 z-10 space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">Add Manual Consultation</h3>
+          <p class="text-xs text-slate-500">Record a phone or walk-in client appointment</p>
+        </div>
+        <button type="button" id="add-booking-modal-close" class="text-slate-400 hover:text-slate-700 text-2xl font-light focus:outline-none">&times;</button>
+      </div>
+
+      <form id="admin-add-booking-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="add-b-name">Client Full Name *</label>
+          <input type="text" id="add-b-name" required placeholder="e.g. Jonathan Lee" class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="add-b-email">Email Address *</label>
+            <input type="email" id="add-b-email" required placeholder="client@company.sg" class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="add-b-phone">Phone Number *</label>
+            <input type="tel" id="add-b-phone" required placeholder="+65 9123 4567" class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="add-b-service">Service Area *</label>
+          <select id="add-b-service" class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500">
+            <option value="Bookkeeping & Accounting">01. Bookkeeping & Accounting</option>
+            <option value="Tax Planning & Compliance">02. Tax Planning & Compliance (IRAS / GST)</option>
+            <option value="Financial Planning & CFO Advisory">03. Financial Planning & Fractional CFO</option>
+            <option value="Corporate Secretarial & Advisory">04. Corporate Secretarial & Advisory</option>
+            <option value="Full Advisory Package">05. Full Advisory Package</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="add-b-message">Notes / Requirements</label>
+          <textarea id="add-b-message" rows="3" placeholder="Client requirements, company size, timeline..." class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-teal-500"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-3">
+          <button type="button" onclick="document.getElementById('add-booking-modal').classList.remove('active')" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 text-xs font-bold text-brand-dark bg-brand-accent hover:bg-brand-accentHover rounded-lg shadow-sm">
+            Save Booking
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="admin-toast-container"></div>
+
+  <!-- Admin JavaScript -->
+  <script src="admin.js"></script>
+</body>
+</html>

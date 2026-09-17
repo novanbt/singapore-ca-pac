@@ -1,0 +1,32 @@
+[
+  {
+    "id": "BK-2026-001",
+    "name": "Marcus Lim",
+    "email": "marcus.lim@novatech.sg",
+    "phone": "+65 9123 4567",
+    "service": "Corporate Tax & GST Compliance",
+    "message": "Looking for corporate tax filing for Year 2026 and quarterly GST submission guidance for our 15-person tech startup.",
+    "status": "Pending",
+    "createdAt": "2026-09-16T14:30:00.000Z"
+  },
+  {
+    "id": "BK-2026-002",
+    "name": "Serene Tan",
+    "email": "serene.tan@orchardretail.com",
+    "phone": "+65 8234 5678",
+    "service": "Bookkeeping & Accounting",
+    "message": "Need monthly bookkeeping and bank reconciliation services across 3 retail outlets in Singapore.",
+    "status": "Confirmed",
+    "createdAt": "2026-09-16T10:15:00.000Z"
+  },
+  {
+    "id": "BK-2026-003",
+    "name": "David Chen",
+    "email": "dchen@apexholding.com",
+    "phone": "+65 9876 5432",
+    "service": "Financial Planning & CFO Advisory",
+    "message": "Seeking fractional CFO assistance to prepare financial model for Series A fundraise.",
+    "status": "Completed",
+    "createdAt": "2026-09-15T09:00:00.000Z"
+  }
+]

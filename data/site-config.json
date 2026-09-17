@@ -1,0 +1,19 @@
+{
+  "companyName": "Ca Pac SG",
+  "tagline": "Smart Accounting & Financial Advisory",
+  "phone": "+65 6513 9986",
+  "email": "factinkobyhr@gmail.com",
+  "address": "50 Chin Swee Rd, #06-04, Singapore 169874",
+  "mapsUrl": "https://maps.app.goo.gl/aSkt8xyTKhD2RKF9A",
+  "operatingHours": "Mon – Fri: 9:00 AM – 6:00 PM (SGT)",
+  "heroEyebrow": "Accounting & Financial Experts",
+  "heroHeadline": "Smart Accounting.\nStronger Business.",
+  "heroSubtitle": "Reliable accounting, tax, bookkeeping, and financial advisory services designed to help your business scale with complete financial clarity and confidence.",
+  "primaryCtaText": "Book a Consultation",
+  "metrics": {
+    "financialPlanning": 85,
+    "taxCompliance": 92,
+    "businessAdvisory": 88,
+    "clientSatisfaction": 96
+  }
+}

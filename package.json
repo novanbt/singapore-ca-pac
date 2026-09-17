@@ -1,0 +1,19 @@
+{
+  "name": "singapore-ca-pac",
+  "version": "1.0.0",
+  "description": "Singapore Ca Pac - Smart Accounting & Financial Advisory Website with Admin Panel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "singapore",
+    "accounting",
+    "financial-advisory",
+    "admin-dashboard",
+    "booking-system"
+  ],
+  "author": "Ca Pac SG",
+  "license": "ISC"
+}

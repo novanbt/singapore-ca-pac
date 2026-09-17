@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Ca Pac SG - Admin Panel Stylesheet
+   Modern, sleek, dark-slate & brand accent dashboard aesthetic
+   ========================================================================== */
+
+:root {
+  --brand-dark: #002B29;
+  --brand-darker: #001A18;
+  --brand-deep: #002422;
+  --brand-secondary: #004C49;
+  --brand-accent: #16D5C5;
+  --brand-accent-hover: #13bcad;
+  --brand-pale: #EDFBF9;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Custom scrollbar for tables & modals */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Status Badges */
+.badge-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.badge-confirmed {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-completed {
+  background-color: #e0f2fe;
+  color: #075985;
+  border: 1px solid #bae6fd;
+}
+
+.badge-cancelled {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Sidebar navigation active state */
+.nav-item.active {
+  background-color: rgba(22, 213, 197, 0.15);
+  color: #16D5C5;
+  border-left: 3px solid #16D5C5;
+}
+
+/* Modal animation */
+.admin-modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.admin-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admin-modal-card {
+  transform: translateY(15px) scale(0.97);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-modal.active .admin-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* Admin Toast */
+#admin-toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.admin-toast {
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 440px;
+  padding: 14px 18px;
+  background: #002B29;
+  color: #ffffff;
+  border-left: 4px solid #16D5C5;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(22, 213, 197, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: admin-toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes admin-toast-in {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-toast.toast-exit {
+  animation: admin-toast-out 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes admin-toast-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-15px); }
+}

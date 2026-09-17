@@ -1,0 +1,424 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Ca Pac SG | Smart Accounting &amp; Financial Advisory</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#002B29',
+              darker: '#00201E',
+              deep: '#002422',
+              secondary: '#004C49',
+              accent: '#16D5C5',
+              accentHover: '#13bcad',
+              pale: '#EDFBF9',
+              muted: '#718096'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles: Geometric Background Rings & Utilities -->
+<style data-purpose="geometric-decorations">
+    .bg-rings-left {
+      background-image: radial-gradient(circle at 10% 20%, rgba(22, 213, 197, 0.08) 0%, transparent 45%),
+                        radial-gradient(circle at 5% 30%, rgba(22, 213, 197, 0.05) 0%, transparent 60%);
+    }
+    .concentric-circle {
+      position: absolute;
+      border-radius: 9999px;
+      border: 1px solid rgba(22, 213, 197, 0.09);
+      pointer-events: none;
+    }
+    .text-glow {
+      text-shadow: 0 0 20px rgba(22, 213, 197, 0.25);
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased selection:bg-brand-accent selection:text-brand-dark overflow-x-hidden">
+<!-- BEGIN: TopHeader -->
+<header class="bg-brand-dark text-white border-b border-white/10 sticky top-0 z-50 backdrop-blur-md bg-opacity-95" data-purpose="primary-header">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Brand Logo -->
+<a class="flex items-center gap-3 group" data-purpose="logo" href="#">
+<div class="w-9 h-9 rounded-lg bg-brand-secondary flex items-end justify-center p-1.5 gap-0.5 shadow-inner">
+<span class="w-1.5 h-3.5 bg-brand-accent rounded-xs"></span>
+<span class="w-1.5 h-6 bg-brand-accent rounded-xs"></span>
+<span class="w-1.5 h-4.5 bg-brand-accent rounded-xs"></span>
+</div>
+<span class="text-2xl font-bold tracking-tight text-white group-hover:text-brand-accent transition-colors">Ca Pac SG</span>
+</a>
+<!-- Center Desktop Navigation Links -->
+<nav aria-label="Main Navigation" class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+<a class="text-brand-accent transition-colors" href="#home">Home</a>
+<a class="hover:text-brand-accent transition-colors" href="#about">About Us</a>
+<a class="hover:text-brand-accent transition-colors" href="#services">Services</a>
+
+
+</nav>
+<!-- Right Action CTA Buttons -->
+<div class="flex items-center space-x-4" data-purpose="header-cta">
+<a class="hidden sm:inline-block text-sm font-semibold text-slate-200 hover:text-white px-4 py-2 transition-colors" href="#contact">
+          Contact Us
+        </a>
+<a class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-brand-dark bg-brand-accent hover:bg-brand-accentHover rounded-md shadow-sm transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0" href="#contact">
+          Book a Call
+        </a>
+</div>
+</div>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: HeroSection -->
+<section class="relative bg-brand-dark text-white pt-14 pb-20 overflow-hidden bg-rings-left" data-purpose="hero-section" id="home">
+<!-- Concentric Decorative Circles (matching reference layout) -->
+<div class="concentric-circle -top-24 -left-24 w-96 h-96"></div>
+<div class="concentric-circle -top-12 -left-12 w-[34rem] h-[34rem]"></div>
+<div class="concentric-circle -top-36 -right-36 w-[40rem] h-[40rem] border-brand-accent/5"></div>
+<div class="concentric-circle top-1/3 -right-20 w-80 h-80 border-brand-accent/5"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<!-- Eyebrow & Hero Headings -->
+<div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+<span class="inline-block text-xs uppercase tracking-[0.25em] text-brand-accent font-semibold mb-3">
+          Accounting &amp; Financial Experts
+        </span>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-5">
+          Smart Accounting.<br class="hidden sm:inline"> Stronger Business.
+        </h1>
+<p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto mb-8">
+          Reliable accounting, tax, bookkeeping, and financial advisory services designed to help your business scale with complete financial clarity and confidence.
+        </p>
+<!-- Dual CTA Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<a class="w-full sm:w-auto px-7 py-3.5 text-sm font-bold text-brand-dark bg-brand-accent hover:bg-brand-accentHover rounded-md shadow-lg transition-transform duration-150 hover:-translate-y-0.5 text-center" href="#contact">
+            Book a Call
+          </a>
+<a class="w-full sm:w-auto px-7 py-3.5 text-sm font-semibold text-white bg-brand-secondary/70 hover:bg-brand-secondary border border-teal-600/40 rounded-md transition-colors text-center" href="#services">
+            Explore Services
+          </a>
+</div>
+</div>
+<!-- Hero Two-Column Feature Display (Ref: Left Teal Quote + Right Visual with Overlapping Badge) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+<!-- Left Column: Quote Card -->
+<div class="lg:col-span-5 bg-teal-800/80 rounded-xl p-8 sm:p-10 flex flex-col justify-between border border-teal-600/30 shadow-xl relative overflow-hidden group">
+<!-- Background accent glow -->
+<div class="absolute -bottom-10 -right-10 w-44 h-44 bg-brand-accent/10 rounded-full blur-2xl pointer-events-none"></div>
+<div>
+<!-- Quotation Marks Icon -->
+<div aria-hidden="true" class="text-brand-accent mb-6">
+<svg class="w-10 h-10 fill-current opacity-90" viewBox="0 0 24 24">
+<path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+</svg>
+</div>
+<blockquote class="text-xl sm:text-2xl font-medium text-white leading-snug tracking-tight">
+              "Good numbers don't just describe a business. They help build one."
+            </blockquote>
+</div>
+<div class="pt-8 mt-6 border-t border-teal-700/50 flex items-center justify-between">
+<span class="text-xs uppercase tracking-wider text-teal-200 font-semibold">— Ca Pac SG Client</span>
+<span class="text-brand-accent text-sm font-semibold flex items-center gap-1">5.0 ★★★★★</span>
+</div>
+</div>
+<!-- Right Column: Audited Workspace Image with Floating Video/Story Badge -->
+<div class="lg:col-span-7 relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 group">
+<img alt="Clean close-up overhead photography of a sleek modern financial calculator, pen, audited financial statements and reports, charts and graph papers on a minimalist office desk workspace." class="w-full h-80 lg:h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out brightness-95" height="896" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRjm2N_wuS_0YHYA8yrzlAKgLnUmUC9oF9jlYtATtlyyJTN64wyBFtytgLXsJFOXE4WOgs6n1pAXQVDwRZzHvUAV-4kZOLKL0RAMBvWjT97JxvvnahxAMvtt9zy7RTfJ4Exwq2CcS8TBLfbRUQzmzcXACCB_O1Hcap7seg-J1dKHioH5Q7KtShDnwV7FPIAaGuOkW-ByCgenjKOthltpAJUvDpJmyagzTxLEp5zWB2Z4XnrbIk7F8" width="1200">
+<!-- Overlapping Floating Play Badge (Exact Reference Recreation) -->
+<div class="absolute -top-3 -right-3 sm:top-5 sm:right-5 flex items-center justify-center p-2 z-20">
+<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white shadow-2xl flex items-center justify-center relative cursor-pointer hover:scale-110 transition-transform">
+<!-- Circular Animated Label Simulation -->
+<svg class="absolute inset-0 w-full h-full p-1 animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100">
+<path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" id="circlePath"></path>
+<text class="text-[9px] font-bold tracking-[0.2em] uppercase fill-slate-800">
+<textPath href="#circlePath" startOffset="0%">
+                    • WATCH OUR STORY • CA PAC SG
+                  </textPath>
+</text>
+</svg>
+<!-- Center Play Button -->
+<div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-brand-dark flex items-center justify-center text-brand-accent pl-0.5 shadow-md">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<path d="M8 5v14l11-7z"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: ThreeColumnFeaturesBar -->
+<section class="bg-brand-deep border-y border-teal-900/60 py-10" data-purpose="quick-features-bar">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-teal-900/60">
+<!-- Feature 1 -->
+<div class="flex items-start gap-4 pt-4 md:pt-0 md:px-4">
+<div class="w-10 h-10 rounded-lg bg-teal-900/40 border border-teal-700/30 flex items-center justify-center flex-shrink-0 text-brand-accent">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-white font-bold text-base mb-1">Expert Team</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+              Certified accountants and CPAs focused directly on the financial sustainability of your business.
+            </p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex items-start gap-4 pt-4 md:pt-0 md:px-4">
+<div class="w-10 h-10 rounded-lg bg-teal-900/40 border border-teal-700/30 flex items-center justify-center flex-shrink-0 text-brand-accent">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-white font-bold text-base mb-1">Reliable Service</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+              Fast, organized, and dependable bookkeeping support when month-end and deadlines arrive.
+            </p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex items-start gap-4 pt-4 md:pt-0 md:px-4">
+<div class="w-10 h-10 rounded-lg bg-teal-900/40 border border-teal-700/30 flex items-center justify-center flex-shrink-0 text-brand-accent">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-white font-bold text-base mb-1">Business Advisory</h3>
+<p class="text-xs text-slate-300 leading-relaxed">
+              Data-backed forecasting and strategic metrics to make proactive, growth-oriented decisions.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ThreeColumnFeaturesBar -->
+<!-- BEGIN: TrustedByPartnersBar -->
+
+<!-- END: TrustedByPartnersBar -->
+<!-- BEGIN: AboutAndValueSection -->
+<section class="py-20 lg:py-24 bg-white" data-purpose="about-metrics-section" id="about">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+<!-- Left Column: Grayscale Professional Portrait -->
+<div class="lg:col-span-5 relative">
+<div class="rounded-2xl overflow-hidden shadow-xl bg-slate-100 border border-slate-200">
+<img alt="Black and white grayscale professional editorial photograph of an elegant businesswoman accountant working thoughtfully on a laptop at a modern minimalist desk in an office." class="w-full h-auto object-cover grayscale contrast-105 hover:contrast-100 transition-all duration-300" height="896" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7SjVhXd1parfHqDCHBKZXVBoQV-Y3Xdno722J9ZccaANUacJefanhfvJ5x_M12L8rIJNqh7Im7fqGZBM5BAzay5CjXmhwCg_D6GnEEAgL4FpL0rrSDgdv3Z-Ev7yURuHTFagT0YBzCVexpMz45xHthBGfATEpsO7MayhCDCsxq6s-8EbIXCeoA3J85FVPJiWsKM41_lJz22qyH4yITtbMOXmIPK3YNHhoS_avwqZP-c-qQUozAc0" width="1200">
+</div>
+<!-- Decorative accent block -->
+<div class="absolute -bottom-4 -left-4 w-24 h-24 bg-brand-accent/20 rounded-xl -z-10"></div>
+</div>
+<!-- Right Column: Heading & Horizontal Metric Bars -->
+<div class="lg:col-span-7" id="metrics">
+<span class="text-xs uppercase tracking-[0.25em] text-teal-600 font-bold mb-3 block">
+            Why Ca Pac SG
+          </span>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
+            We make your business goals our priority
+          </h2>
+<p class="text-slate-600 text-base leading-relaxed mb-8">
+            From day-to-day corporate bookkeeping and GST filing to comprehensive strategic financial planning, our dedicated team gives you the real-time clarity and operational support needed to steer your business with absolute certainty.
+          </p>
+<!-- Metric Progress Bars (Replicating the reference progress layout) -->
+<div class="space-y-6">
+<!-- Progress Item 1 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800">Financial Planning</span>
+<span class="text-xs font-bold text-teal-700">85%</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-brand-accent h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Progress Item 2 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800">Tax &amp; Regulatory Compliance</span>
+<span class="text-xs font-bold text-teal-700">92%</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-brand-accent h-2 rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- Progress Item 3 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800">Business Advisory</span>
+<span class="text-xs font-bold text-teal-700">88%</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-brand-accent h-2 rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<!-- Progress Item 4 -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-semibold text-slate-800">Client Satisfaction</span>
+<span class="text-xs font-bold text-teal-700">96%</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-brand-accent h-2 rounded-full" style="width: 96%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: AboutAndValueSection -->
+<!-- BEGIN: ServicesSection -->
+<section class="py-20 bg-slate-50 border-t border-slate-200/70" data-purpose="services-grid" id="services">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="text-xs uppercase tracking-[0.25em] text-teal-600 font-bold mb-3 block">
+          What We Do
+        </span>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Financial expertise for every stage of your business
+        </h2>
+</div>
+<!-- 2x2 Services Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+<!-- Service Card 1 -->
+<article class="bg-white p-8 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+<span class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-2 block">01</span>
+<h3 class="text-xl font-bold text-slate-900 mb-3">Bookkeeping &amp; Accounting</h3>
+<p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Accurate, structured ledger maintenance, bank reconciliation, monthly management accounts, and audited financial statement preparation.
+          </p>
+<a class="text-sm font-semibold text-teal-700 hover:text-teal-900 inline-flex items-center gap-1" href="#contact">
+            Learn more <span aria-hidden="true" class="">→</span>
+</a>
+</article>
+<!-- Service Card 2 -->
+<article class="bg-white p-8 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+<span class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-2 block">02</span>
+<h3 class="text-xl font-bold text-slate-900 mb-3">Tax Planning &amp; Compliance</h3>
+<p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Proactive corporate tax advisory, GST returns, withholding tax navigation, and compliance optimization for local and regional regulations.
+          </p>
+<a class="text-sm font-semibold text-teal-700 hover:text-teal-900 inline-flex items-center gap-1" href="#contact">
+            Learn more <span aria-hidden="true" class="">→</span>
+</a>
+</article>
+<!-- Service Card 3 -->
+<article class="bg-white p-8 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+<span class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-2 block">03</span>
+<h3 class="text-xl font-bold text-slate-900 mb-3">Financial Planning &amp; CFO Advisory</h3>
+<p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Cash-flow forecasting, margin evaluation, working capital management, and part-time CFO leadership to navigate critical growth milestones.
+          </p>
+<a class="text-sm font-semibold text-teal-700 hover:text-teal-900 inline-flex items-center gap-1" href="#contact">
+            Learn more <span aria-hidden="true" class="">→</span>
+</a>
+</article>
+<!-- Service Card 4 -->
+<article class="bg-white p-8 rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+<span class="text-xs font-bold text-teal-600 uppercase tracking-wider mb-2 block">04</span>
+<h3 class="text-xl font-bold text-slate-900 mb-3">Corporate Secretarial &amp; Advisory</h3>
+<p class="text-slate-600 text-sm leading-relaxed mb-6">
+            Corporate structuring, statutory filings, compliance health checks, and governance services to keep your entity protected at all times.
+          </p>
+<a class="text-sm font-semibold text-teal-700 hover:text-teal-900 inline-flex items-center gap-1" href="#contact">
+            Learn more <span aria-hidden="true" class="">→</span>
+</a>
+</article>
+</div>
+</div>
+</section>
+<!-- END: ServicesSection -->
+<!-- BEGIN: BottomCtaBanner -->
+<section class="py-20 sm:py-24 bg-brand-pale relative overflow-hidden" data-purpose="call-to-action-banner" id="contact">
+<!-- Ambient glowing backdrop effect matching reference bottom section -->
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] bg-brand-accent/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+<span class="inline-block text-xs uppercase tracking-[0.25em] text-teal-700 font-bold mb-3">
+        Ca Pac SG Advisory
+      </span>
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-5 leading-tight">
+        Grow your financial power<br class="hidden sm:inline"> with our accounting services
+      </h2>
+<p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto mb-8">
+        Let's turn your numbers into clearer decisions, stronger operations, and sustainable growth. Speak directly with a senior consultant today.
+      </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<a class="w-full sm:w-auto px-8 py-4 text-sm font-bold text-brand-dark bg-brand-accent hover:bg-brand-accentHover rounded-md shadow-md transition-transform duration-150 hover:-translate-y-0.5" href="mailto:contact@capac-sg.com">
+          Book a Consultation
+        </a>
+<a class="w-full sm:w-auto px-8 py-4 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-md transition-colors" href="tel:+6560000000">Book a Call</a>
+</div>
+</div>
+</section>
+<!-- END: BottomCtaBanner -->
+<!-- BEGIN: MainFooter -->
+<footer class="bg-brand-darker text-slate-400 pt-16 pb-12 border-t border-white/5" data-purpose="primary-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Top Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+<!-- Col 1: Brand Info -->
+<div class="md:col-span-5">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-8 h-8 rounded bg-brand-secondary flex items-end justify-center p-1 gap-0.5">
+<span class="w-1 h-3 bg-brand-accent"></span>
+<span class="w-1 h-5 bg-brand-accent"></span>
+<span class="w-1 h-3.5 bg-brand-accent"></span>
+</div>
+<span class="text-xl font-bold text-white">Ca Pac SG</span>
+</div>
+<p class="text-sm text-slate-400 max-w-sm leading-relaxed mb-6">
+            Professional accounting, tax advisory, and strategic financial services engineered for ambitious businesses in Singapore and beyond.
+          </p>
+</div>
+<!-- Col 2: Quick Links -->
+<div class="md:col-span-3">
+<h4 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Company</h4>
+<ul class="space-y-2.5 text-sm">
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#about">About Us</a></li>
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#services">Services</a></li>
+
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#contact">Contact</a></li>
+</ul>
+</div>
+<!-- Col 3: Services Links -->
+<div class="md:col-span-4">
+<h4 class="text-white text-sm font-semibold tracking-wider uppercase mb-4">Services</h4>
+<ul class="space-y-2.5 text-sm">
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#services">Bookkeeping &amp; Accounting</a></li>
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#services">Corporate Tax &amp; GST Compliance</a></li>
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#services">Part-Time CFO Advisory</a></li>
+<li class=""><a class="hover:text-brand-accent transition-colors" href="#services">Audit &amp; Assurance Support</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Row: Copyright & Branding -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+<p class="">© 2026 Ca Pac SG. All rights reserved.</p>
+<p class="uppercase tracking-widest text-[11px] font-semibold text-slate-400">
+          CA PAC SG • FINANCIAL ADVISORY
+        </p>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+
+
+</body></html>

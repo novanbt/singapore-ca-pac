@@ -5,15 +5,29 @@ const path = require('path');
 const IS_VERCEL = process.env.VERCEL === '1' || process.env.NOW_REGION !== undefined;
 const DATA_DIR = IS_VERCEL ? '/tmp/data' : path.join(__dirname, '..', 'data');
 const LOCAL_DATA_DIR = path.join(__dirname, '..', 'data');
+const ROOT_DIR = path.join(__dirname, '..');
 
 const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
 const CONFIG_FILE = path.join(DATA_DIR, 'site-config.json');
 const AUTH_FILE = path.join(DATA_DIR, 'admin-auth.json');
 
+const MIME_TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon'
+};
+
 // Helper to seed initial data in serverless environment
 function ensureDataFiles() {
   if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+    try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch (e) {}
   }
 
   function copyOrInit(targetFile, localName, defaultVal) {
@@ -25,7 +39,9 @@ function ensureDataFiles() {
           return;
         } catch (e) {}
       }
-      fs.writeFileSync(targetFile, JSON.stringify(defaultVal, null, 2), 'utf8');
+      try {
+        fs.writeFileSync(targetFile, JSON.stringify(defaultVal, null, 2), 'utf8');
+      } catch (e) {}
     }
   }
 
@@ -80,7 +96,9 @@ function readJSON(file, fallback = []) {
 
 function writeJSON(file, data) {
   ensureDataFiles();
-  fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {}
 }
 
 function parseBody(req) {
@@ -102,11 +120,10 @@ function parseBody(req) {
 }
 
 module.exports = async (req, res) => {
-  // CORS
+  // Global CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Content-Type', 'application/json');
 
   if (req.method === 'OPTIONS') {
     res.statusCode = 204;
@@ -116,137 +133,184 @@ module.exports = async (req, res) => {
 
   ensureDataFiles();
 
-  const url = req.url || '';
-  const pathname = url.split('?')[0].replace(/^\/api/, '');
+  const url = req.url || '/';
+  const rawPath = url.split('?')[0];
   const method = req.method.toUpperCase();
 
-  // 1. Auth Login
-  if ((pathname === '/auth/login' || pathname === '/login') && method === 'POST') {
-    const { username, password } = await parseBody(req);
-    const userClean = (username || '').toLowerCase().trim();
-    const passClean = (password || '').trim();
+  // =========================================================================
+  // 1. API ROUTES (starts with /api or handles API paths)
+  // =========================================================================
+  if (rawPath.startsWith('/api')) {
+    res.setHeader('Content-Type', 'application/json');
+    const apiPath = rawPath.replace(/^\/api/, '');
 
-    const authData = readJSON(AUTH_FILE, { username: 'factinkobyhr@gmail.com', password: '65139986' });
-    const expectedUser = (authData.username || 'factinkobyhr@gmail.com').toLowerCase().trim();
-    const expectedPass = (authData.password || '65139986').trim();
+    // 1a. Auth Login
+    if ((apiPath === '/auth/login' || apiPath === '/login') && method === 'POST') {
+      const { username, password } = await parseBody(req);
+      const userClean = (username || '').toLowerCase().trim();
+      const passClean = (password || '').trim();
 
-    if ((userClean === expectedUser || userClean === 'admin') && (passClean === expectedPass || passClean === '65139986')) {
-      res.statusCode = 200;
-      res.end(JSON.stringify({ success: true, token: 'session_token_' + Date.now(), user: authData.username }));
-    } else {
-      res.statusCode = 401;
-      res.end(JSON.stringify({ success: false, message: 'Invalid admin username or password' }));
-    }
-    return;
-  }
+      const authData = readJSON(AUTH_FILE, { username: 'factinkobyhr@gmail.com', password: '65139986' });
+      const expectedUser = (authData.username || 'factinkobyhr@gmail.com').toLowerCase().trim();
+      const expectedPass = (authData.password || '65139986').trim();
 
-  // 1b. Update Admin Credentials
-  if ((pathname === '/auth/update-credentials' || pathname === '/update-credentials') && method === 'POST') {
-    const { currentPassword, newUsername, newPassword } = await parseBody(req);
-    const authData = readJSON(AUTH_FILE, { username: 'factinkobyhr@gmail.com', password: '65139986' });
-    const expectedPass = (authData.password || '65139986').trim();
-
-    if ((currentPassword || '').trim() !== expectedPass && (currentPassword || '').trim() !== '65139986') {
-      res.statusCode = 400;
-      res.end(JSON.stringify({ success: false, message: 'Current password verification failed. Incorrect password.' }));
+      if ((userClean === expectedUser || userClean === 'admin') && (passClean === expectedPass || passClean === '65139986')) {
+        res.statusCode = 200;
+        res.end(JSON.stringify({ success: true, token: 'session_token_' + Date.now(), user: authData.username }));
+      } else {
+        res.statusCode = 401;
+        res.end(JSON.stringify({ success: false, message: 'Invalid admin username or password' }));
+      }
       return;
     }
 
-    if (!newUsername && !newPassword) {
-      res.statusCode = 400;
-      res.end(JSON.stringify({ success: false, message: 'Please provide a new username/email or password.' }));
-      return;
-    }
+    // 1b. Update Admin Credentials
+    if ((apiPath === '/auth/update-credentials' || apiPath === '/update-credentials') && method === 'POST') {
+      const { currentPassword, newUsername, newPassword } = await parseBody(req);
+      const authData = readJSON(AUTH_FILE, { username: 'factinkobyhr@gmail.com', password: '65139986' });
+      const expectedPass = (authData.password || '65139986').trim();
 
-    const updatedAuth = {
-      username: newUsername ? newUsername.trim() : authData.username,
-      password: newPassword ? newPassword.trim() : authData.password,
-      updatedAt: new Date().toISOString()
-    };
+      if ((currentPassword || '').trim() !== expectedPass && (currentPassword || '').trim() !== '65139986') {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ success: false, message: 'Current password verification failed. Incorrect password.' }));
+        return;
+      }
 
-    writeJSON(AUTH_FILE, updatedAuth);
-    res.statusCode = 200;
-    res.end(JSON.stringify({ success: true, message: 'Admin credentials updated successfully', username: updatedAuth.username }));
-    return;
-  }
+      if (!newUsername && !newPassword) {
+        res.statusCode = 400;
+        res.end(JSON.stringify({ success: false, message: 'Please provide a new username/email or password.' }));
+        return;
+      }
 
-  // 2. Site Config API
-  if (pathname === '/config' || pathname === '') {
-    if (method === 'GET') {
-      const config = readJSON(CONFIG_FILE, {});
-      res.statusCode = 200;
-      res.end(JSON.stringify(config));
-      return;
-    }
-    if (method === 'POST') {
-      const newConfig = await parseBody(req);
-      writeJSON(CONFIG_FILE, newConfig);
-      res.statusCode = 200;
-      res.end(JSON.stringify({ success: true, message: 'Site configuration updated successfully', config: newConfig }));
-      return;
-    }
-  }
-
-  // 3. Bookings API
-  if (pathname === '/bookings') {
-    if (method === 'GET') {
-      const bookings = readJSON(BOOKINGS_FILE, []);
-      res.statusCode = 200;
-      res.end(JSON.stringify(bookings));
-      return;
-    }
-    if (method === 'POST') {
-      const body = await parseBody(req);
-      const bookings = readJSON(BOOKINGS_FILE, []);
-      const newBooking = {
-        id: 'BK-' + Date.now().toString().slice(-6),
-        name: body.name || 'Anonymous',
-        email: body.email || '',
-        phone: body.phone || '',
-        service: body.service || 'Bookkeeping & Accounting',
-        message: body.message || '',
-        status: 'Pending',
-        createdAt: new Date().toISOString()
+      const updatedAuth = {
+        username: newUsername ? newUsername.trim() : authData.username,
+        password: newPassword ? newPassword.trim() : authData.password,
+        updatedAt: new Date().toISOString()
       };
-      bookings.unshift(newBooking);
-      writeJSON(BOOKINGS_FILE, bookings);
-      res.statusCode = 201;
-      res.end(JSON.stringify({ success: true, booking: newBooking }));
+
+      writeJSON(AUTH_FILE, updatedAuth);
+      res.statusCode = 200;
+      res.end(JSON.stringify({ success: true, message: 'Admin credentials updated successfully', username: updatedAuth.username }));
       return;
     }
+
+    // 2. Site Config API
+    if (apiPath === '/config' || apiPath === '') {
+      if (method === 'GET') {
+        const config = readJSON(CONFIG_FILE, {});
+        res.statusCode = 200;
+        res.end(JSON.stringify(config));
+        return;
+      }
+      if (method === 'POST') {
+        const newConfig = await parseBody(req);
+        writeJSON(CONFIG_FILE, newConfig);
+        res.statusCode = 200;
+        res.end(JSON.stringify({ success: true, message: 'Site configuration updated successfully', config: newConfig }));
+        return;
+      }
+    }
+
+    // 3. Bookings API
+    if (apiPath === '/bookings') {
+      if (method === 'GET') {
+        const bookings = readJSON(BOOKINGS_FILE, []);
+        res.statusCode = 200;
+        res.end(JSON.stringify(bookings));
+        return;
+      }
+      if (method === 'POST') {
+        const body = await parseBody(req);
+        const bookings = readJSON(BOOKINGS_FILE, []);
+        const newBooking = {
+          id: 'BK-' + Date.now().toString().slice(-6),
+          name: body.name || 'Anonymous',
+          email: body.email || '',
+          phone: body.phone || '',
+          service: body.service || 'Bookkeeping & Accounting',
+          message: body.message || '',
+          status: 'Pending',
+          createdAt: new Date().toISOString()
+        };
+        bookings.unshift(newBooking);
+        writeJSON(BOOKINGS_FILE, bookings);
+        res.statusCode = 201;
+        res.end(JSON.stringify({ success: true, booking: newBooking }));
+        return;
+      }
+    }
+
+    // 4. Update / Delete Booking by ID
+    const bookingMatch = apiPath.match(/^\/bookings\/([a-zA-Z0-9_-]+)$/);
+    if (bookingMatch) {
+      const bookingId = bookingMatch[1];
+      const bookings = readJSON(BOOKINGS_FILE, []);
+      const index = bookings.findIndex(b => b.id === bookingId);
+
+      if (index === -1) {
+        res.statusCode = 404;
+        res.end(JSON.stringify({ success: false, message: 'Booking not found' }));
+        return;
+      }
+
+      if (method === 'PATCH') {
+        const updates = await parseBody(req);
+        bookings[index] = { ...bookings[index], ...updates };
+        writeJSON(BOOKINGS_FILE, bookings);
+        res.statusCode = 200;
+        res.end(JSON.stringify({ success: true, booking: bookings[index] }));
+        return;
+      }
+
+      if (method === 'DELETE') {
+        const deleted = bookings.splice(index, 1)[0];
+        writeJSON(BOOKINGS_FILE, bookings);
+        res.statusCode = 200;
+        res.end(JSON.stringify({ success: true, deleted }));
+        return;
+      }
+    }
+
+    res.statusCode = 404;
+    res.end(JSON.stringify({ error: 'Endpoint not found', path: apiPath }));
+    return;
   }
 
-  // 4. Update / Delete Booking by ID
-  const bookingMatch = pathname.match(/^\/bookings\/([a-zA-Z0-9_-]+)$/);
-  if (bookingMatch) {
-    const bookingId = bookingMatch[1];
-    const bookings = readJSON(BOOKINGS_FILE, []);
-    const index = bookings.findIndex(b => b.id === bookingId);
+  // =========================================================================
+  // 2. STATIC PAGE & ASSET SERVING (Ensures no 404 on root or subpages)
+  // =========================================================================
+  let filePath;
+  if (rawPath === '/' || rawPath === '' || rawPath === '/index.html') {
+    filePath = path.join(ROOT_DIR, 'index.html');
+  } else if (rawPath === '/admin' || rawPath === '/admin.html') {
+    filePath = path.join(ROOT_DIR, 'admin.html');
+  } else {
+    const safePath = path.normalize(rawPath).replace(/^(\.\.[\/\\])+/, '');
+    filePath = path.join(ROOT_DIR, safePath);
+  }
 
-    if (index === -1) {
-      res.statusCode = 404;
-      res.end(JSON.stringify({ success: false, message: 'Booking not found' }));
-      return;
-    }
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.statusCode = 200;
+    const stream = fs.createReadStream(filePath);
+    stream.pipe(res);
+    return;
+  }
 
-    if (method === 'PATCH') {
-      const updates = await parseBody(req);
-      bookings[index] = { ...bookings[index], ...updates };
-      writeJSON(BOOKINGS_FILE, bookings);
-      res.statusCode = 200;
-      res.end(JSON.stringify({ success: true, booking: bookings[index] }));
-      return;
-    }
-
-    if (method === 'DELETE') {
-      const deleted = bookings.splice(index, 1)[0];
-      writeJSON(BOOKINGS_FILE, bookings);
-      res.statusCode = 200;
-      res.end(JSON.stringify({ success: true, deleted }));
-      return;
-    }
+  // Fallback: serve index.html
+  const indexPath = path.join(ROOT_DIR, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.statusCode = 200;
+    const stream = fs.createReadStream(indexPath);
+    stream.pipe(res);
+    return;
   }
 
   res.statusCode = 404;
-  res.end(JSON.stringify({ error: 'Endpoint not found', path: pathname }));
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('404 Not Found');
 };

@@ -2,9 +2,10 @@
   "name": "singapore-ca-pac",
   "version": "1.0.0",
   "description": "Singapore Ca Pac - Smart Accounting & Financial Advisory Website with Admin Panel",
+  "main": "server.js",
   "scripts": {
-    "dev": "node dev-server.js",
-    "start": "node dev-server.js"
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "singapore",

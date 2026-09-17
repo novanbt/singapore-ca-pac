@@ -2,16 +2,24 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/admin",
-      "destination": "/admin.html"
+      "source": "/api/config",
+      "destination": "/api/config.js"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.js"
+      "source": "/api/bookings",
+      "destination": "/api/bookings.js"
     },
     {
-      "source": "/api",
-      "destination": "/api/index.js"
+      "source": "/api/bookings/:id",
+      "destination": "/api/bookings.js?id=:id"
+    },
+    {
+      "source": "/api/auth/login",
+      "destination": "/api/auth.js?action=login"
+    },
+    {
+      "source": "/api/auth/update-credentials",
+      "destination": "/api/auth.js?action=update"
     }
   ]
 }

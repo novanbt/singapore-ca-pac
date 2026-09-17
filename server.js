@@ -4,23 +4,45 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
-const DATA_DIR = path.join(__dirname, 'data');
+
+const IS_VERCEL = process.env.VERCEL === '1' || process.env.NOW_REGION !== undefined;
+const DATA_DIR = IS_VERCEL ? '/tmp/data' : path.join(__dirname, 'data');
+const LOCAL_DATA_DIR = path.join(__dirname, 'data');
 const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
 const CONFIG_FILE = path.join(DATA_DIR, 'site-config.json');
 const AUTH_FILE = path.join(DATA_DIR, 'admin-auth.json');
 
-// Ensure data folder and files exist
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-if (!fs.existsSync(BOOKINGS_FILE)) {
-  fs.writeFileSync(BOOKINGS_FILE, JSON.stringify([], null, 2));
-}
-if (!fs.existsSync(CONFIG_FILE)) {
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify({}, null, 2));
-}
-if (!fs.existsSync(AUTH_FILE)) {
-  fs.writeFileSync(AUTH_FILE, JSON.stringify({ username: 'factinkobyhr@gmail.com', password: '65139986' }, null, 2));
+// Ensure data folder and files exist safely
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(BOOKINGS_FILE)) {
+    const localFile = path.join(LOCAL_DATA_DIR, 'bookings.json');
+    if (fs.existsSync(localFile)) {
+      try { fs.copyFileSync(localFile, BOOKINGS_FILE); } catch (e) {}
+    } else {
+      fs.writeFileSync(BOOKINGS_FILE, JSON.stringify([], null, 2));
+    }
+  }
+  if (!fs.existsSync(CONFIG_FILE)) {
+    const localFile = path.join(LOCAL_DATA_DIR, 'site-config.json');
+    if (fs.existsSync(localFile)) {
+      try { fs.copyFileSync(localFile, CONFIG_FILE); } catch (e) {}
+    } else {
+      fs.writeFileSync(CONFIG_FILE, JSON.stringify({}, null, 2));
+    }
+  }
+  if (!fs.existsSync(AUTH_FILE)) {
+    const localFile = path.join(LOCAL_DATA_DIR, 'admin-auth.json');
+    if (fs.existsSync(localFile)) {
+      try { fs.copyFileSync(localFile, AUTH_FILE); } catch (e) {}
+    } else {
+      fs.writeFileSync(AUTH_FILE, JSON.stringify({ username: 'factinkobyhr@gmail.com', password: '65139986' }, null, 2));
+    }
+  }
+} catch (err) {
+  console.warn('Data initialization warning:', err.message);
 }
 
 const MIME_TYPES = {
@@ -48,7 +70,11 @@ function readJSON(file, fallback = []) {
 }
 
 function writeJSON(file, data) {
-  fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.warn('Write JSON error:', err.message);
+  }
 }
 
 function parseBody(req) {
@@ -249,7 +275,11 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-  console.log(`Admin Panel available at http://localhost:${PORT}/admin.html`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Admin Panel available at http://localhost:${PORT}/admin.html`);
+  });
+}
+
+module.exports = server;

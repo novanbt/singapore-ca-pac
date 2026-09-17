@@ -256,9 +256,10 @@ async function requestHandler(req, res) {
 
     // 2. Site Config API
     if (pathname === '/api/config') {
-      if (method === 'GET') {
+      if (method === 'GET' || method === 'HEAD') {
         const config = readJSON(CONFIG_FILE, DEFAULT_CONFIG);
         res.statusCode = 200;
+        if (method === 'HEAD') { res.end(); return; }
         res.end(JSON.stringify(config));
         return;
       }
@@ -273,9 +274,10 @@ async function requestHandler(req, res) {
 
     // 3. Bookings API
     if (pathname === '/api/bookings') {
-      if (method === 'GET') {
+      if (method === 'GET' || method === 'HEAD') {
         const bookings = readJSON(BOOKINGS_FILE, DEFAULT_BOOKINGS);
         res.statusCode = 200;
+        if (method === 'HEAD') { res.end(); return; }
         res.end(JSON.stringify(bookings));
         return;
       }

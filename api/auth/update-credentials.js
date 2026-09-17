@@ -7,7 +7,7 @@ const LOCAL_DATA_DIR = path.join(__dirname, '..', '..', 'data');
 const AUTH_FILE = path.join(DATA_DIR, 'admin-auth.json');
 
 const DEFAULT_AUTH = {
-  username: 'factinkobyhr@gmail.com',
+  username: 'audit@singaporeca.sg',
   password: '65139986'
 };
 

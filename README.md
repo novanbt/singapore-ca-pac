@@ -40,7 +40,7 @@ node server.js
 ---
 
 ## 🔐 Default Admin Access
-- **Email / Username:** `factinkobyhr@gmail.com`
+- **Email / Username:** `audit@singaporeca.sg`
 - **Password:** `65139986`
 
 *(Admin credentials can be changed anytime from the Admin Panel under Website Settings)*

@@ -7,7 +7,7 @@ const LOCAL_DATA_DIR = path.join(__dirname, '..', '..', 'data');
 const AUTH_FILE = path.join(DATA_DIR, 'admin-auth.json');
 
 const DEFAULT_AUTH = {
-  username: 'factinkobyhr@gmail.com',
+  username: 'audit@singaporeca.sg',
   password: '65139986'
 };
 
@@ -67,7 +67,7 @@ module.exports = async (req, res) => {
   const userClean = (username || '').toLowerCase().trim();
   const passClean = (password || '').trim();
 
-  const expectedUser = (authData.username || 'factinkobyhr@gmail.com').toLowerCase().trim();
+  const expectedUser = (authData.username || 'audit@singaporeca.sg').toLowerCase().trim();
   const expectedPass = (authData.password || '65139986').trim();
 
   if ((userClean === expectedUser || userClean === 'admin') && (passClean === expectedPass || passClean === '65139986')) {

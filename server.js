@@ -13,7 +13,7 @@ const CONFIG_FILE = path.join(DATA_DIR, 'site-config.json');
 const AUTH_FILE = path.join(DATA_DIR, 'admin-auth.json');
 
 const DEFAULT_AUTH = {
-  username: 'factinkobyhr@gmail.com',
+  username: 'audit@singaporeca.sg',
   password: '65139986'
 };
 
@@ -21,7 +21,7 @@ const DEFAULT_CONFIG = {
   companyName: 'Ca Pac SG',
   tagline: 'Smart Accounting & Financial Advisory',
   phone: '+65 6513 9986',
-  email: 'factinkobyhr@gmail.com',
+  email: 'audit@singaporeca.sg',
   address: '50 Chin Swee Rd, #06-04, Singapore 169874',
   mapsUrl: 'https://maps.app.goo.gl/aSkt8xyTKhD2RKF9A',
   operatingHours: 'Mon – Fri: 9:00 AM – 6:00 PM (SGT)',
@@ -211,7 +211,7 @@ async function requestHandler(req, res) {
       const passClean = (password || '').trim();
 
       const authData = readJSON(AUTH_FILE, DEFAULT_AUTH);
-      const expectedUser = (authData.username || 'factinkobyhr@gmail.com').toLowerCase().trim();
+      const expectedUser = (authData.username || 'audit@singaporeca.sg').toLowerCase().trim();
       const expectedPass = (authData.password || '65139986').trim();
 
       if ((userClean === expectedUser || userClean === 'admin') && (passClean === expectedPass || passClean === '65139986')) {

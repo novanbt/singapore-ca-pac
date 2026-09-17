@@ -57,13 +57,13 @@ function initAuth() {
       }
     } catch (err) {
       // Fallback local verification
-      if ((username.toLowerCase() === 'factinkobyhr@gmail.com' || username.toLowerCase() === 'admin') && 
+      if ((username.toLowerCase() === 'audit@singaporeca.sg' || username.toLowerCase() === 'admin') && 
           (password === '65139986' || password === 'admin123')) {
         sessionStorage.setItem('capac_admin_token', 'local_token');
         showAdminToast('Welcome back, Administrator!', 'success');
         showDashboard();
       } else {
-        showAdminToast('Invalid credentials. Use factinkobyhr@gmail.com / 65139986', 'error');
+        showAdminToast('Invalid username or password', 'error');
       }
     } finally {
       submitBtn.disabled = false;
@@ -403,7 +403,7 @@ function fillSettingsForm() {
   setInputValue('cfg-company-name', siteConfig.companyName || 'Ca Pac SG');
   setInputValue('cfg-tagline', siteConfig.tagline || 'Smart Accounting & Financial Advisory');
   setInputValue('cfg-phone', siteConfig.phone || '+65 6513 9986');
-  setInputValue('cfg-email', siteConfig.email || 'factinkobyhr@gmail.com');
+  setInputValue('cfg-email', siteConfig.email || 'audit@singaporeca.sg');
   setInputValue('cfg-address', siteConfig.address || '50 Chin Swee Rd, #06-04, Singapore 169874');
   setInputValue('cfg-maps-url', siteConfig.mapsUrl || 'https://maps.app.goo.gl/aSkt8xyTKhD2RKF9A');
   setInputValue('cfg-hours', siteConfig.operatingHours || 'Mon – Fri: 9:00 AM – 6:00 PM (SGT)');
